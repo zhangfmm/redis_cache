@@ -1,0 +1,62 @@
+spring:
+  redis:
+    host: 127.0.0.1
+    database: 0
+    port: 6379
+    jedis:
+      pool:
+        max-idle: 8
+        min-idle: 0
+        max-active: 8
+        max-wait: -1ms
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/tillo_transfer?useSSL=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: 123456
+    druid:
+      initial-size: 1
+      max-active: 20
+      min-idle: 3
+      max-wait: 60000
+      pool-prepared-statements: false
+      validation-query: SELECT 'x'
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 30000
+      max-pool-prepared-statement-per-connection-size: 20
+
+
+
+#mybatis:
+#  type-aliases-package: com.ym.aillo.login.entity
+#  mapper-locations: classpath:mapping/*.xml
+mybatis-plus:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.zfm.redis_cache.entity
+  configuration:
+    # 打印sql，在开发或测试的时候用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#暴露全部的监控信息
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+server:
+  port: 8088
+  servlet:
+    context-path: /redis
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+env: dev-2019
+branch: dev
